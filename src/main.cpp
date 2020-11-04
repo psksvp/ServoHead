@@ -4,8 +4,8 @@
 
 #include <Arduino.h>
 #include <Servo.h>
-#include "PID.h"
-#include "utils.h"
+#include <PID.h>
+#include <utils.h>
 
 
 //func decl
@@ -39,6 +39,7 @@ void setup()
   tiltServo.attach(3);
 
   moveServo(90, 90); // reset
+  reportSystemTypeSize();
   reportReady();
 }
 
@@ -58,7 +59,7 @@ void reportReady()
 
 void moveCenter(float panInput, float tiltInput)
 {
-  static PID panPID(screenCenterX, 0.08, 0.08, 0.06);
+  static PID panPID(screenCenterX, 0.08, 0.08, 0.1);
   static PID tiltPID(screenCenterY, 0.08, 0.08, 0.07);
 
   int dx = (int)panPID.step(panInput) * panServoScale;
